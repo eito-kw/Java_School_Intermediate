@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  # 作成するコンテナ
+  postgresql:
+    image: postgres:15.3
+    container_name: sample-db
+    ports:
+      - 5432:5432
+    volumes:
+      - ./docker/db/initdb.d:/docker-entrypoint-initdb.d
+      - pg-data:/var/lib/postgresql/data # コンテナを起動時に、下記のボリューム をマウントする
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: sample-db
+# ボリュームはコンテナ外にデータを保持できるもの
+volumes:
+  pg-data:
+
